@@ -1,9 +1,0 @@
-class Board {
-  constructor() {
-
-  }
-
-  setupBoard() {
-
-  }
-}

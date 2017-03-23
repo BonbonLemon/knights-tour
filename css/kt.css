@@ -1,0 +1,100 @@
+html, body, figure, figcaption, ul, li, h1 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  text-align: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 60px;
+  margin: 30px;
+}
+
+ul {
+  margin: 30px auto;
+  width: 640px;
+  border: 2px solid black;
+}
+
+li {
+  float: left;
+  width: 80px;
+  height: 80px;
+  background: #512f0f;
+  cursor: pointer;
+}
+
+li:nth-child(16n+1),
+li:nth-child(16n+3),
+li:nth-child(16n+5),
+li:nth-child(16n+7),
+li:nth-child(16n),
+li:nth-child(16n-2),
+li:nth-child(16n-4),
+li:nth-child(16n-6) {
+  background: #fff7e0;
+}
+
+li:hover {
+  background: yellow;
+}
+
+.x,
+.o {
+  background: white;
+  cursor: default;
+}
+
+.x:hover,
+.o:hover {
+  background: white;
+}
+
+.x:after,
+.o:after {
+  display: block;
+  width: 100%;
+  font-size: 60px;
+  line-height: 80px;
+}
+
+.x:after {
+  content: "x";
+}
+
+.o:after {
+  content: "o";
+}
+
+.game-over li {
+  color: red;
+  cursor: default;
+  background: white;
+}
+
+.winner-x .x,
+.winner-o .o {
+  background: green;
+  color: white;
+}
+
+figcaption {
+  font-size: 30px;
+}
