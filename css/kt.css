@@ -75,6 +75,13 @@ li:hover {
   height: 20px;
 }
 
+#knight {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+}
+
 /*
 .x,
 .o {

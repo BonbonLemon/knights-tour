@@ -45,11 +45,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const View = __webpack_require__(1);
+	const Knight = __webpack_require__(2);
 	
 	$( () => {
 	  const rootEl = $('.kt');
-	  // new View(game, rootEl);
-	  new View(rootEl);
+	  const knight = new Knight();
+	  new View(knight, rootEl);
 	});
 
 
@@ -58,12 +59,19 @@
 /***/ function(module, exports) {
 
 	class View {
-	  // constructor(game, $el) {
-	  constructor($el) {
-	    // this.game = game;
+	  constructor(knight, $el) {
+	    this.knight = knight;
 	    this.$el = $el;
 	
 	    this.setupBoard();
+	    this.bindEvents();
+	  }
+	
+	  bindEvents() {
+	    this.$el.on("click", "li", ( event => {
+	      const $square = $(event.currentTarget);
+	      debugger;
+	    }));
 	  }
 	
 	  setupBoard() {
@@ -98,11 +106,34 @@
 	    }
 	
 	    this.$el.append($ul);
+	
+	    const $knight = $("<img>", {
+	      id: "knight",
+	      src: "./images/knight.png"
+	    });
+	
+	    const liNum = this.knight.pos[0] * 8 + this.knight.pos[1];
+	    $('li:eq(' + liNum + ')').append($knight)
 	  }
 	}
 	
 	
 	module.exports = View;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	class Knight {
+	  constructor() {
+	    this.travels = [];
+	    this.pos = [Math.floor(Math.random() * 8), Math.floor(Math.random() * 8)];
+	    console.log(this.pos);
+	  }
+	}
+	
+	module.exports = Knight;
 
 
 /***/ }

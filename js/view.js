@@ -1,10 +1,17 @@
 class View {
-  // constructor(game, $el) {
-  constructor($el) {
-    // this.game = game;
+  constructor(knight, $el) {
+    this.knight = knight;
     this.$el = $el;
 
     this.setupBoard();
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    this.$el.on("click", "li", ( event => {
+      const $square = $(event.currentTarget);
+      debugger;
+    }));
   }
 
   setupBoard() {
@@ -39,6 +46,14 @@ class View {
     }
 
     this.$el.append($ul);
+
+    const $knight = $("<img>", {
+      id: "knight",
+      src: "./images/knight.png"
+    });
+
+    const liNum = this.knight.pos[0] * 8 + this.knight.pos[1];
+    $('li:eq(' + liNum + ')').append($knight)
   }
 }
 
