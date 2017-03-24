@@ -23,13 +23,13 @@ body {
 }
 
 h1 {
-  font-size: 60px;
-  margin: 30px;
+  font-size: 46px;
+  margin: 10px;
 }
 
 ul {
   margin: 30px auto;
-  width: 640px;
+  width: 660px;
   border: 2px solid black;
 }
 
@@ -41,14 +41,14 @@ li {
   cursor: pointer;
 }
 
-li:nth-child(16n+1),
+/*li:nth-child(16n+1),
 li:nth-child(16n+3),
 li:nth-child(16n+5),
 li:nth-child(16n+7),
 li:nth-child(16n),
 li:nth-child(16n-2),
-li:nth-child(16n-4),
-li:nth-child(16n-6) {
+li:nth-child(16n-4),*/
+li:nth-child(even) {
   background: #fff7e0;
 }
 
@@ -56,6 +56,26 @@ li:hover {
   background: yellow;
 }
 
+.row-number {
+  float: left;
+  width: 20px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.col-letter {
+  float: left;
+  width: 80px;
+  height: 20px;
+}
+
+#bl-spacer {
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+/*
 .x,
 .o {
   background: white;
@@ -97,4 +117,4 @@ li:hover {
 
 figcaption {
   font-size: 30px;
-}
+}*/
