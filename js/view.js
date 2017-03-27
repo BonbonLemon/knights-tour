@@ -13,6 +13,10 @@ class View {
       this.knight.pos = $square.data("pos");
       $("#knight").appendTo($square);
     })).bind(this);
+
+    $("#start").click( event => {
+      this.knight.dfs();
+    }).bind(this);
   }
 
   setupBoard() {
