@@ -10,8 +10,9 @@ class View {
   bindEvents() {
     this.$el.on("click", "li", ( event => {
       const $square = $(event.currentTarget);
-      debugger;
-    }));
+      this.knight.pos = $square.data("pos");
+      $("#knight").appendTo($square);
+    })).bind(this);
   }
 
   setupBoard() {
