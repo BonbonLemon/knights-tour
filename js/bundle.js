@@ -128,12 +128,14 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	const Queue = __webpack_require__(3);
+	
 	class Knight {
 	  constructor() {
-	    this.travels = [];
 	    this.pos = [Math.floor(Math.random() * 8), Math.floor(Math.random() * 8)];
+	    this.travels = [this.pos];
 	  }
 	
 	  moves() {
@@ -150,13 +152,57 @@
 	  }
 	
 	  dfs() {
+	    let queue = new Queue;
+	    debugger;
+	    this.travels.push(this.pos);
+	
 	    for (let move of this.moves()) {
-	      console.log(move);
+	      const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
+	      if (destination[0] >= 0 && destination[0] <= 7 &&
+	          destination[1] >= 0 && destination[1] <= 7 &&
+	          !this.travels.indexOf(destination)) {
+	        this.pos = destination;
+	        return this.dfs();
+	      } else {
+	
+	      }
 	    }
 	  }
 	}
 	
 	module.exports = Knight;
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	class Queue {
+	  constructor() {
+	    this.pushStack = [];
+	    this.popStack = [];
+	  }
+	
+	  enqueue(data) {
+	    this.pushStack.push(data);
+	    return data;
+	  }
+	
+	  dequeue() {
+	    const data = this.popStack.pop();
+	    if (!data) {
+	      while (this.pushStack.length > 0) {
+	        this.popStack.push(this.pushStack.pop());
+	      }
+	
+	      return this.popStack.pop();
+	    } else {
+	      return data;
+	    }
+	  }
+	}
+	
+	module.exports = Queue;
 
 
 /***/ }
