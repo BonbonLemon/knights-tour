@@ -21,6 +21,10 @@ class Queue {
       return data;
     }
   }
+
+  isEmpty() {
+    return this.pushStack.length == 0 && this.popStack == 0;
+  }
 }
 
 module.exports = Queue;

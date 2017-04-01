@@ -131,40 +131,73 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const Queue = __webpack_require__(3);
+	const TourPolyTreeNode = __webpack_require__(4);
 	
 	class Knight {
 	  constructor() {
 	    this.pos = [Math.floor(Math.random() * 8), Math.floor(Math.random() * 8)];
-	    this.travels = [this.pos];
+	    this.visited = {};
+	    this.visited[this.pos] = true;
 	  }
 	
-	  moves() {
-	    return [
-	      [1, 2],
-	      [1, -2],
-	      [-1, 2],
-	      [-1, -2],
-	      [2, 1],
-	      [2, -1],
-	      [-2, 1],
-	      [-2, -1]
-	    ];
-	  }
+	  // validMoves() {
+	  //   let moves = [
+	  //     [1, 2],
+	  //     [1, -2],
+	  //     [-1, 2],
+	  //     [-1, -2],
+	  //     [2, 1],
+	  //     [2, -1],
+	  //     [-2, 1],
+	  //     [-2, -1]
+	  //   ];
+	  //   let validMoves = [];
+	  //
+	  //   for (let move of moves) {
+	  //     const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
+	  //     if (destination[0] >= 0 && destination[0] <= 7 &&
+	  //         destination[1] >= 0 && destination[1] <= 7) {
+	  //       validMoves.push(destination);
+	  //     }
+	  //   }
+	  //
+	  //   return validMoves;
+	  // }
 	
-	  dfs() {
+	  bfs() {
 	    let queue = new Queue;
-	    debugger;
-	    this.travels.push(this.pos);
+	    queue.enqueue(this.pos);
 	
-	    for (let move of this.moves()) {
-	      const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
-	      if (destination[0] >= 0 && destination[0] <= 7 &&
-	          destination[1] >= 0 && destination[1] <= 7 &&
-	          !this.travels.indexOf(destination)) {
-	        this.pos = destination;
-	        return this.dfs();
-	      } else {
+	    while (!queue.isEmpty()) {
+	      const currSquare = queue.dequeue();
 	
+	      for (let move of this.validMoves()) {
+	
+	      }
+	    }
+	  }
+	
+	  dfs(currNode = new TourPolyTreeNode(this.pos)) {
+	    for (let move of currNode.validMoves()) {
+	      if (currNode.hasTraveled(move)) {
+	        continue;
+	      }
+	      const childNode = new TourPolyTreeNode(move);
+	      currNode.addChild(childNode);
+	
+	      console.log(currNode.pos);
+	      console.log(currNode.depth);
+	
+	      if (currNode.depth == 52) {
+	        debugger;
+	        return;
+	      }
+	
+	      const bottomNode = this.dfs(childNode);
+	      if (!bottomNode) { continue; }
+	      if (bottomNode.depth == 50) {
+	        debugger;
+	        return bottomNode;
 	      }
 	    }
 	  }
@@ -200,9 +233,84 @@
 	      return data;
 	    }
 	  }
+	
+	  isEmpty() {
+	    return this.pushStack.length == 0 && this.popStack == 0;
+	  }
 	}
 	
 	module.exports = Queue;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	class TourPolyTreeNode {
+	  constructor(pos, depth = 1) {
+	    this.parent = this;
+	    this.pos = pos;
+	    this.depth = depth;
+	  }
+	
+	  addChild(child) {
+	    child.parent = this;
+	    child.depth = this.depth + 1;
+	  }
+	
+	  validMoves() {
+	    let moves = [
+	      [-2, 1],
+	      [-1, 2],
+	      [1, 2],
+	      [2, 1],
+	      [2, -1],
+	      [1, -2],
+	      [-1, -2],
+	      [-2, -1],
+	    ];
+	    let validMoves = [];
+	
+	    for (let move of moves) {
+	      const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
+	      if (destination[0] >= 0 && destination[0] <= 7 &&
+	          destination[1] >= 0 && destination[1] <= 7) {
+	        validMoves.push(destination);
+	      }
+	    }
+	
+	    return validMoves;
+	  }
+	
+	  hasTraveled(move) {
+	    let currNode = this;
+	    while (currNode != currNode.parent) {
+	      if (currNode.pos[0] == move[0] && currNode.pos[1] == move[1]) {
+	        return true
+	      }
+	      currNode = currNode.parent;
+	    }
+	
+	    return false;
+	  }
+	
+	  printPath() {
+	    let path = [this.pos];
+	    let currNode = this;
+	
+	    while (currNode.parent != currNode) {
+	      currNode = currNode.parent;
+	
+	      path.push(currNode.pos);
+	    }
+	
+	    for (let i = path.length; i >= 0; i--) {
+	      console.log(path[i]);
+	    }
+	  }
+	}
+	
+	module.exports = TourPolyTreeNode;
 
 
 /***/ }
