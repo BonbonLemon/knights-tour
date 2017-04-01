@@ -15,7 +15,7 @@ class View {
     })).bind(this);
 
     $("#start").click( event => {
-      this.knight.dfs();
+      this.knight.warnsdorff();
     }).bind(this);
   }
 

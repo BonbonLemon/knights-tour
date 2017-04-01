@@ -26,7 +26,8 @@ class TourPolyTreeNode {
     for (let move of moves) {
       const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
       if (destination[0] >= 0 && destination[0] <= 7 &&
-          destination[1] >= 0 && destination[1] <= 7) {
+          destination[1] >= 0 && destination[1] <= 7 &&
+          !this.hasTraveled(destination)) {
         validMoves.push(destination);
       }
     }

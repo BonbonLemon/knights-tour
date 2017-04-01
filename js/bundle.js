@@ -75,7 +75,7 @@
 	    })).bind(this);
 	
 	    $("#start").click( event => {
-	      this.knight.dfs();
+	      this.knight.warnsdorff();
 	    }).bind(this);
 	  }
 	
@@ -140,29 +140,23 @@
 	    this.visited[this.pos] = true;
 	  }
 	
-	  // validMoves() {
-	  //   let moves = [
-	  //     [1, 2],
-	  //     [1, -2],
-	  //     [-1, 2],
-	  //     [-1, -2],
-	  //     [2, 1],
-	  //     [2, -1],
-	  //     [-2, 1],
-	  //     [-2, -1]
-	  //   ];
-	  //   let validMoves = [];
-	  //
-	  //   for (let move of moves) {
-	  //     const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
-	  //     if (destination[0] >= 0 && destination[0] <= 7 &&
-	  //         destination[1] >= 0 && destination[1] <= 7) {
-	  //       validMoves.push(destination);
-	  //     }
-	  //   }
-	  //
-	  //   return validMoves;
-	  // }
+	  warnsdorff(currNode = new TourPolyTreeNode(this.pos)) {
+	    let leastAccessibleNode;
+	
+	    for (let move of currNode.validMoves()) {
+	      const childNode = new TourPolyTreeNode(move);
+	      currNode.addChild(childNode);
+	
+	      if (!leastAccessibleNode) {
+	        leastAccessibleNode = childNode;
+	        continue;
+	      }
+	
+	      if (childNode.validMoves().length < leastAccessibleNode.validMoves().length) {
+	        leastAccessibleNode = childNode;
+	      }
+	    }
+	  }
 	
 	  bfs() {
 	    let queue = new Queue;
@@ -274,7 +268,8 @@
 	    for (let move of moves) {
 	      const destination = [this.pos[0] + move[0], this.pos[1] + move[1]];
 	      if (destination[0] >= 0 && destination[0] <= 7 &&
-	          destination[1] >= 0 && destination[1] <= 7) {
+	          destination[1] >= 0 && destination[1] <= 7 &&
+	          !this.hasTraveled(destination)) {
 	        validMoves.push(destination);
 	      }
 	    }
