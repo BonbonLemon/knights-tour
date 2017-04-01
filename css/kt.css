@@ -60,7 +60,7 @@ li:nth-child(even).visited {
   background: #acff82;
 }
 
-li:hover {
+li:hover, li:nth-child(even).visited:hover {
   background: yellow;
 }
 
