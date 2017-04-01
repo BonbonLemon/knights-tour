@@ -41,6 +41,10 @@ li {
   cursor: pointer;
 }
 
+li.visited {
+  background: #6cd038;
+}
+
 /*li:nth-child(16n+1),
 li:nth-child(16n+3),
 li:nth-child(16n+5),
@@ -50,6 +54,10 @@ li:nth-child(16n-2),
 li:nth-child(16n-4),*/
 li:nth-child(even) {
   background: #fff7e0;
+}
+
+li:nth-child(even).visited {
+  background: #acff82;
 }
 
 li:hover {

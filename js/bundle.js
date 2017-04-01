@@ -82,7 +82,9 @@
 	        i++;
 	        setTimeout( () => {
 	          const liNum = square[0] * 8 + square[1];
-	          $("#knight").appendTo($('li:eq(' + liNum + ')'));
+	          const $square = $('li:eq(' + liNum + ')');
+	          $("#knight").appendTo($square);
+	          $square.addClass("visited");
 	        }, 500 * i);
 	      }
 	    }).bind(this);
