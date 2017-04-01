@@ -75,7 +75,8 @@
 	    })).bind(this);
 	
 	    $("#start").click( event => {
-	      this.knight.warnsdorff();
+	      let x = this.knight.warnsdorff();
+	      x.printPath();
 	    }).bind(this);
 	  }
 	
@@ -144,7 +145,7 @@
 	    let leastAccessibleNode;
 	
 	    for (let move of currNode.validMoves()) {
-	      const childNode = new TourPolyTreeNode(move);
+	      let childNode = new TourPolyTreeNode(move);
 	      currNode.addChild(childNode);
 	
 	      if (!leastAccessibleNode) {
@@ -155,6 +156,12 @@
 	      if (childNode.validMoves().length < leastAccessibleNode.validMoves().length) {
 	        leastAccessibleNode = childNode;
 	      }
+	    }
+	
+	    if (leastAccessibleNode.depth == 64) {
+	      return leastAccessibleNode;
+	    } else {
+	      return this.warnsdorff(leastAccessibleNode);
 	    }
 	  }
 	
@@ -280,7 +287,7 @@
 	  hasTraveled(move) {
 	    let currNode = this;
 	    while (currNode != currNode.parent) {
-	      if (currNode.pos[0] == move[0] && currNode.pos[1] == move[1]) {
+	      if (currNode.parent.pos[0] == move[0] && currNode.parent.pos[1] == move[1]) {
 	        return true
 	      }
 	      currNode = currNode.parent;
@@ -289,7 +296,7 @@
 	    return false;
 	  }
 	
-	  printPath() {
+	  returnPath() {
 	    let path = [this.pos];
 	    let currNode = this;
 	
@@ -299,9 +306,7 @@
 	      path.push(currNode.pos);
 	    }
 	
-	    for (let i = path.length; i >= 0; i--) {
-	      console.log(path[i]);
-	    }
+	    return path.reverse();
 	  }
 	}
 	

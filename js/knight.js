@@ -12,7 +12,7 @@ class Knight {
     let leastAccessibleNode;
 
     for (let move of currNode.validMoves()) {
-      const childNode = new TourPolyTreeNode(move);
+      let childNode = new TourPolyTreeNode(move);
       currNode.addChild(childNode);
 
       if (!leastAccessibleNode) {
@@ -23,6 +23,12 @@ class Knight {
       if (childNode.validMoves().length < leastAccessibleNode.validMoves().length) {
         leastAccessibleNode = childNode;
       }
+    }
+
+    if (leastAccessibleNode.depth == 64) {
+      return leastAccessibleNode;
+    } else {
+      return this.warnsdorff(leastAccessibleNode);
     }
   }
 

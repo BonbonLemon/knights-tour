@@ -15,7 +15,8 @@ class View {
     })).bind(this);
 
     $("#start").click( event => {
-      this.knight.warnsdorff();
+      let x = this.knight.warnsdorff();
+      x.printPath();
     }).bind(this);
   }
 
