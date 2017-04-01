@@ -75,8 +75,16 @@
 	    })).bind(this);
 	
 	    $("#start").click( event => {
-	      let x = this.knight.warnsdorff();
-	      x.printPath();
+	      const bottomNode = this.knight.warnsdorff();
+	
+	      let i = 0;
+	      for (let square of bottomNode.returnPath()) {
+	        i++;
+	        setTimeout( () => {
+	          const liNum = square[0] * 8 + square[1];
+	          $("#knight").appendTo($('li:eq(' + liNum + ')'));
+	        }, 500 * i);
+	      }
 	    }).bind(this);
 	  }
 	
